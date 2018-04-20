@@ -4,8 +4,8 @@ import org.junit.Test;
 
 /**
  * Project: zt-javabase
- * Title:
- * Description:
+ * Title: 数值测试
+ * Description: 测试各种进制的数据的表示形式，测试 bit byte 等
  * Date: 2018-4-10
  * Copyright: Copyright (c) 2018
  * Company: LFP

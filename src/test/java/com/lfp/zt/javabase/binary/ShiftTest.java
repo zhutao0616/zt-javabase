@@ -4,8 +4,8 @@ import org.junit.Test;
 
 /**
  * Project: zt-javabase
- * Title:
- * Description:
+ * Title: 测试字符的位运算
+ * Description: 字符字节的位运算，与或非等操作
  * Date: 2018-4-12
  * Copyright: Copyright (c) 2018
  * Company: LFP
