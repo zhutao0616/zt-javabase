@@ -1,4 +1,4 @@
-package com.lfp.zt.script;
+package com.lfp.zt.javabase.script;
 
 import javax.script.*;
 
