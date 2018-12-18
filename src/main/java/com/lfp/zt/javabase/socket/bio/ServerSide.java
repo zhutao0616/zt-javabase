@@ -24,7 +24,7 @@ public class ServerSide {
     //服务端，饿汉式单例
     private static ServerSocket server;
 
-    public synchronized static void init() throws IOException {
+    private static void run() throws IOException {
         if(server != null) return;
         try {
             server = new ServerSocket(port);
@@ -47,7 +47,7 @@ public class ServerSide {
 
     public static void main(String[] args){
         try {
-            ServerSide.init();
+            run();
         } catch (IOException e) {
             e.printStackTrace();
         }

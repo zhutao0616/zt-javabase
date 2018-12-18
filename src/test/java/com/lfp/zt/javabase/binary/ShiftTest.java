@@ -202,4 +202,12 @@ public class ShiftTest {
         System.out.println(c2);
     }
 
+    @Test
+    public void testShift(){
+        System.out.println(1 << 1);//2
+        System.out.println(1 << 2);//4
+        System.out.println(1 << 3);//8
+        System.out.println(1 << 4);//16
+    }
+
 }
