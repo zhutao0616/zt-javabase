@@ -1,8 +1,10 @@
 package com.lfp.zt.javabase.socket.aio.server;
 
 import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousServerSocketChannel;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Project: zt-javabase
@@ -15,21 +17,29 @@ import java.nio.channels.CompletionHandler;
  * @author ZhuTao
  * @version 2.0
  */
-public class AcceptHandler implements CompletionHandler<AsynchronousSocketChannel, ServerHandler> {
+public class AcceptHandler implements CompletionHandler<AsynchronousSocketChannel, Void> {
+    private AsynchronousServerSocketChannel serverChannel;
+    private CountDownLatch latch;
+
+    public AcceptHandler(AsynchronousServerSocketChannel serverChannel, CountDownLatch latch) {
+        this.serverChannel = serverChannel;
+        this.latch = latch;
+    }
+
     @Override
-    public void completed(AsynchronousSocketChannel channel, ServerHandler serverHandler) {
+    public void completed(AsynchronousSocketChannel channel, Void attachment) {
         //继续接受其他客户端的请求
         Server.clientCount++;
         System.out.println("连接的客户端数：" + Server.clientCount);
-        serverHandler.channel.accept(serverHandler, this);
+        serverChannel.accept(null, this);
         //创建新的Buffer
         ByteBuffer buffer = ByteBuffer.allocate(1024);
         //异步读  第三个参数为接收消息回调的业务Handler
         channel.read(buffer, buffer, new ReadHandler(channel));
     }
     @Override
-    public void failed(Throwable exc, ServerHandler serverHandler) {
+    public void failed(Throwable exc, Void attachment) {
         exc.printStackTrace();
-        serverHandler.latch.countDown();
+        latch.countDown();
     }
 }

@@ -27,13 +27,12 @@ public class Client {
         new Thread(clientHandle,"Client").start();
     }
     //向服务器发送消息
-    public static boolean sendMsg(String msg) throws Exception{
+    public static boolean sendMsg(String msg) {
         if(msg.equals("q")) return false;
         clientHandle.sendMsg(msg);
         return true;
     }
-    @SuppressWarnings("resource")
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) {
         Client.start();
         System.out.println("请输入请求消息：");
         Scanner scanner = new Scanner(System.in);

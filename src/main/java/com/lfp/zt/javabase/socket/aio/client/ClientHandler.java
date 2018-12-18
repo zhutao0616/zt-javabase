@@ -22,6 +22,7 @@ public class ClientHandler implements Runnable {
     public AsynchronousSocketChannel clientChannel;
     private String host;
     private int port;
+
     public ClientHandler(String host, int port) {
         this.host = host;
         this.port = port;
@@ -38,7 +39,8 @@ public class ClientHandler implements Runnable {
         latch = new CountDownLatch(1);
 
         //发起异步连接操作，回调参数就是这个类本身，如果连接成功会回调completed方法
-        clientChannel.connect(new InetSocketAddress(host, port), this, new AcceptHandler());
+        clientChannel.connect(new InetSocketAddress(host, port), null, new AcceptHandler(clientChannel, latch));
+
         try {
             latch.await();
         } catch (InterruptedException e1) {

@@ -26,7 +26,7 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
         this.latch = latch;
     }
     @Override
-    public void completed(Integer result,ByteBuffer buffer) {
+    public void completed(Integer result, ByteBuffer buffer) {
         buffer.flip();
         byte[] bytes = new byte[buffer.remaining()];
         buffer.get(bytes);
@@ -39,7 +39,7 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
         }
     }
     @Override
-    public void failed(Throwable exc,ByteBuffer attachment) {
+    public void failed(Throwable exc, ByteBuffer attachment) {
         System.err.println("数据读取失败...");
         try {
             clientChannel.close();
