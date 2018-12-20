@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
+import java.nio.channels.CompletionHandler;
 import java.util.concurrent.CountDownLatch;
 
 /**
@@ -18,16 +19,16 @@ import java.util.concurrent.CountDownLatch;
  * @version 2.0
  */
 public class ClientHandler implements Runnable {
-    public CountDownLatch latch;
-    public AsynchronousSocketChannel clientChannel;
+    private CountDownLatch latch;
+    private AsynchronousSocketChannel clientChannel;
     private String host;
     private int port;
 
-    public ClientHandler(String host, int port) {
+    ClientHandler(String host, int port) {
         this.host = host;
         this.port = port;
         try {
-            //创建异步的客户端通道
+            //开启异步的客户端通道
             clientChannel = AsynchronousSocketChannel.open();
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +40,25 @@ public class ClientHandler implements Runnable {
         latch = new CountDownLatch(1);
 
         //发起异步连接操作，回调参数就是这个类本身，如果连接成功会回调completed方法
-        clientChannel.connect(new InetSocketAddress(host, port), null, new AcceptHandler(clientChannel, latch));
+        clientChannel.connect(new InetSocketAddress(host, port), null, new CompletionHandler<Void, Void>() {
+            //连接服务器成功，意味着TCP三次握手完成
+            @Override
+            public void completed(Void result, Void attachment) {
+                System.out.println("客户端成功连接到服务器...");
+            }
+            //连接服务器失败
+            @Override
+            public void failed(Throwable exc, Void attachment) {
+                System.err.println("连接服务器失败...");
+                exc.printStackTrace();
+                try {
+                    clientChannel.close();
+                    latch.countDown();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         try {
             latch.await();

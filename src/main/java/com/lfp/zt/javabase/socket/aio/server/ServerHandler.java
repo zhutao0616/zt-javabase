@@ -20,36 +20,34 @@ import java.util.concurrent.CountDownLatch;
  * @version 2.0
  */
 public class ServerHandler implements Runnable {
-    public CountDownLatch latch;
-    public AsynchronousServerSocketChannel channel;
-    public ServerHandler(int port) {
+    /** 线程计数器 */
+    private CountDownLatch latch;
+    /** socket服务通道 */
+    private AsynchronousServerSocketChannel serverChannel;
+
+    ServerHandler(int port) {
         try {
-            //创建服务端通道
-            channel = AsynchronousServerSocketChannel.open();
+            //开启服务端通道
+            serverChannel = AsynchronousServerSocketChannel.open();
             //绑定端口
-            channel.bind(new InetSocketAddress(port));
+            serverChannel.bind(new InetSocketAddress(port));
             System.out.println("服务器已启动，端口号：" + port);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @Override
     public void run() {
-        //CountDownLatch初始化
-        //它的作用：在完成一组正在执行的操作之前，允许当前的现场一直阻塞
-        //此处，让现场在此阻塞，防止服务端执行完成后退出
-        //也可以使用while(true)+sleep
-        //生成环境就不需要担心这个问题，以为服务端是不会退出的
+        //初始化计数器，挂起线程，直到出现异常退出
         latch = new CountDownLatch(1);
-        //用于接收客户端的连接
-        //channel.accept(null, new AcceptHandler(channel, latch));
-        channel.accept(null, new CompletionHandler<AsynchronousSocketChannel, Void>() {
+        //接收客户端的连接，建立连接后执行读操作 ReadHandler
+        serverChannel.accept(null, new CompletionHandler<AsynchronousSocketChannel, Void>() {
             @Override
             public void completed(AsynchronousSocketChannel socketChannel, Void attachment) {
                 //继续接受其他客户端的请求
                 Server.clientCount++;
                 System.out.println("连接的客户端数：" + Server.clientCount);
-                //channel.accept(null, this);
                 //创建新的Buffer
                 ByteBuffer buffer = ByteBuffer.allocate(1024);
                 //异步读  第三个参数为接收消息回调的业务Handler

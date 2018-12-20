@@ -41,10 +41,12 @@ public class ReadHandler implements CompletionHandler<Integer, ByteBuffer> {
     @Override
     public void failed(Throwable exc, ByteBuffer attachment) {
         System.err.println("数据读取失败...");
+        exc.printStackTrace();
         try {
             clientChannel.close();
             latch.countDown();
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

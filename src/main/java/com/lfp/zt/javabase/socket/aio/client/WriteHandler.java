@@ -26,14 +26,9 @@ public class WriteHandler implements CompletionHandler<Integer, ByteBuffer> {
     }
     @Override
     public void completed(Integer result, ByteBuffer buffer) {
-        if (buffer.hasRemaining()) {
-            //有剩余未写完，继续写入
-            clientChannel.write(buffer, buffer, this);
-        } else {
-            //重新分配一个buffer，读取数据
-            ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-            clientChannel.read(readBuffer, readBuffer, new ReadHandler(clientChannel, latch));
-        }
+        //重新分配一个buffer，读取数据
+        ByteBuffer readBuffer = ByteBuffer.allocate(1024);
+        clientChannel.read(readBuffer, readBuffer, new ReadHandler(clientChannel, latch));
     }
     @Override
     public void failed(Throwable exc, ByteBuffer attachment) {
@@ -42,6 +37,7 @@ public class WriteHandler implements CompletionHandler<Integer, ByteBuffer> {
             clientChannel.close();
             latch.countDown();
         } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
