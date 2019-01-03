@@ -9,7 +9,7 @@ import com.lfp.zt.algorithm.sort.Sort;
  *              根据临界位置，将数组分为两段，继续递归排序，直到数组长度为1
  * Date: 2018-12-31
  * Copyright: Copyright (c) 2018
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

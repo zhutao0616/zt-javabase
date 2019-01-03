@@ -6,7 +6,7 @@ package com.lfp.zt.pattern.establish.singleton;
  * Description: 利用双重校验锁方式实现。
  * Date: 2019-01-02
  * Copyright: Copyright (c) 2019
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

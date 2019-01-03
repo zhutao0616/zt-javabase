@@ -10,7 +10,7 @@ import java.util.Stack;
  * Description: 提供深度搜索、广度搜索、摆动搜索等
  * Date: 2019-01-01
  * Copyright: Copyright (c) 2019
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

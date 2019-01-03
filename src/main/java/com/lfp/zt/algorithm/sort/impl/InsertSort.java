@@ -8,7 +8,7 @@ import com.lfp.zt.algorithm.sort.Sort;
  * Description: 每次选择一个插入到之前序列的合适位置
  * Date: 2018-12-31
  * Copyright: Copyright (c) 2018
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

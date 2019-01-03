@@ -11,7 +11,7 @@ import java.nio.channels.CompletionHandler;
  * Description:
  * Date: 2018-12-19
  * Copyright: Copyright (c) 2018
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

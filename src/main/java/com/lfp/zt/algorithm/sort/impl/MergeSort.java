@@ -9,7 +9,7 @@ import com.lfp.zt.algorithm.sort.Sort;
  *              然后将排序好的子数组合并起来，合并的时候注意大小顺序即可。
  * Date: 2018-12-31
  * Copyright: Copyright (c) 2018
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

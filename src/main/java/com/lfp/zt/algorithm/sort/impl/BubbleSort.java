@@ -8,7 +8,7 @@ import com.lfp.zt.algorithm.sort.Sort;
  * Description: 每次两两比较，将大的交换到后面
  * Date: 2018-12-31
  * Copyright: Copyright (c) 2018
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0

@@ -10,7 +10,7 @@ import com.lfp.zt.algorithm.sort.Sort;
  *              构建大顶堆时，是自下而上调整子堆即可。注意控制堆的长度。
  * Date: 2018-12-31
  * Copyright: Copyright (c) 2018
- * Company: qudian
+ * Company: LFP
  *
  * @author ZhuTao
  * @version 2.0
