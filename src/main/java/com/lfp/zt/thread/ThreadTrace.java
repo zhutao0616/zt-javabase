@@ -1,5 +1,7 @@
 package com.lfp.zt.thread;
 
+import com.alibaba.ttl.TransmittableThreadLocal;
+
 /**
  * Project: zt-javabase
  * Title:
@@ -14,7 +16,7 @@ package com.lfp.zt.thread;
 public class ThreadTrace {
     public final static String DEFAULT_TRACE = "666666";
 
-    private final static InheritableThreadLocal<String> local = new InheritableThreadLocal<>();
+    private final static TransmittableThreadLocal<String> local = new TransmittableThreadLocal<>();
 
     public static String get() {
         return local.get();

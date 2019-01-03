@@ -38,18 +38,22 @@ public class Client {
 
     public static void main(String [] args){
         List<Task> syncTasks = new ArrayList<>();
-        for (int i=0;i<100;i++){
+        for (int i=0;i<20;i++){
             syncTasks.add(new TaskImpl());
         }
         ThreadTrace.set("123");
         List<String> results = runSync(syncTasks);
-        for (int i=0;i<100;i++){
+        for (int i=0;i<20;i++){
             System.out.println(results.get(i));
         }
-        System.out.println("同步任务全部完成");
+        System.out.println("======================");
+        List<Task> syncTasks2 = new ArrayList<>();
+        for (int i=0;i<20;i++){
+            syncTasks2.add(new TaskImpl());
+        }
         ThreadTrace.set("456");
-        results = runSync(syncTasks);
-        for (int i=0;i<100;i++){
+        results = runSync(syncTasks2);
+        for (int i=0;i<20;i++){
             System.out.println(results.get(i));
         }
 

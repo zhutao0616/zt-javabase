@@ -1,5 +1,7 @@
 package com.lfp.zt.thread;
 
+import com.alibaba.ttl.threadpool.TtlExecutors;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,6 +18,6 @@ import java.util.concurrent.Executors;
  */
 public class ThreadPool {
 
-    public static final ExecutorService pool = Executors.newFixedThreadPool(10);
+    public static final ExecutorService pool = TtlExecutors.getTtlExecutorService(Executors.newFixedThreadPool(10));
 
 }

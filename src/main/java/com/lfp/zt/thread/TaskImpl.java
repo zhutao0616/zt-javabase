@@ -15,7 +15,9 @@ public class TaskImpl implements Task<String> {
 
     @Override
     public String call() {
-        return ThreadTrace.get();
+        String result = ThreadTrace.get();
+        //ThreadTrace.clear();
+        return result;
     }
 
 }
