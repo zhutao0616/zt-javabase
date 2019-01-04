@@ -15,6 +15,8 @@ public class TaskImpl implements Task<String> {
 
     @Override
     public String call() {
+        System.out.println(Thread.currentThread().getName()+"正在运行...");
+        //获取从父线程copy过来的内容
         String result = ThreadTrace.get();
         //ThreadTrace.clear();
         return result;

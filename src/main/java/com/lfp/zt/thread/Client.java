@@ -20,7 +20,7 @@ public class Client {
 
     public static List<String> runSync(List<Task> syncTasks) {
         List<String> result = new ArrayList<>();
-        Long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis();
         CompletableFuture[] cfs = syncTasks.stream().map(object-> CompletableFuture
                 .supplyAsync((Supplier<Object>) object::call, ThreadPool.pool)
                 .whenComplete((v, e) -> {
@@ -41,21 +41,19 @@ public class Client {
         for (int i=0;i<20;i++){
             syncTasks.add(new TaskImpl());
         }
+        System.out.println("======================");
+
+        //父线程设置值
         ThreadTrace.set("123");
         List<String> results = runSync(syncTasks);
-        for (int i=0;i<20;i++){
-            System.out.println(results.get(i));
-        }
+        results.forEach(System.out::println);
+
         System.out.println("======================");
-        List<Task> syncTasks2 = new ArrayList<>();
-        for (int i=0;i<20;i++){
-            syncTasks2.add(new TaskImpl());
-        }
+
+        //父线程设置值
         ThreadTrace.set("456");
-        results = runSync(syncTasks2);
-        for (int i=0;i<20;i++){
-            System.out.println(results.get(i));
-        }
+        results = runSync(syncTasks);
+        results.forEach(System.out::println);
 
 
     }
