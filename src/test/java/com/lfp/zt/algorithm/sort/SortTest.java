@@ -94,4 +94,12 @@ public class SortTest {
         sort = new HeapSort<>();
         print(sort);
     }
+
+    @Test
+    public void testForkJoinSort(){
+        Sort<Integer> sort;
+        // 归并
+        sort = new ForkJoinSort<>();
+        print(sort);
+    }
 }

@@ -1,5 +1,6 @@
 package com.lfp.zt.javabase.jvm;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 
 /**
@@ -19,7 +20,7 @@ public class Client {
         System.out.println(Runtime.getRuntime().availableProcessors());
 
         System.out.println(ForkJoinPool.getCommonPoolParallelism());
-
+        Executors.newWorkStealingPool();
     }
 
 }

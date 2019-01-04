@@ -24,6 +24,8 @@ import java.util.concurrent.Executors;
  *  |- newCachedThreadPool      创建一个可缓存线程池，如果线程池长度超过处理需要，可灵活回收空闲线程，若无可回收，则新建线程
  *  |- newScheduledThreadPool   创建一个定长线程池，支持定时及周期性任务执行
  *
+ *  |- newWorkStealingPool      创建一个可以工作窃取的线程池，ForkJoinPool
+ *
  * Date: 2019-01-03
  * Copyright: Copyright (c) 2019
  * Company: LFP
@@ -32,6 +34,8 @@ import java.util.concurrent.Executors;
  * @version 2.0
  */
 public class ThreadPool {
+
+
 
     public static final ExecutorService pool = TtlExecutors.getTtlExecutorService(Executors.newFixedThreadPool(10));
 
