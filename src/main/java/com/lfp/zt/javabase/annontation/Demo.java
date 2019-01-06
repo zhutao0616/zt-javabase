@@ -11,16 +11,11 @@ package com.lfp.zt.javabase.annontation;
  * @author ZhuTao
  * @version 2.0
  */
-public class Demo {
-    private String name;
+public interface Demo {
 
-    @MyMethod("耗时")
-    public String getName() {
-        return name;
-    }
+    String getName();
 
-    @MyMethod("耗时")
-    public void setName(String name) {
-        this.name = name;
-    }
+    @TimeAble
+    void setName(String name);
+
 }

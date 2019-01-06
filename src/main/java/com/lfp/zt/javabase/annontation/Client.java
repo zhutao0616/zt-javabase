@@ -1,6 +1,6 @@
 package com.lfp.zt.javabase.annontation;
 
-import java.lang.reflect.InvocationTargetException;
+import com.lfp.zt.javabase.dynamicProxy.ProxyFactory;
 
 /**
  * Project: zt-javabase
@@ -15,8 +15,11 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class Client {
 
-    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        BeanWarpper<Demo> demo = new BeanWarpper<>(new Demo());
-        System.out.println(demo.doMethod("getName"));
+    public static void main(String[] args) {
+
+        Demo demo = ProxyFactory.createProxy(Demo.class, new DemoImpl("zt"));
+        System.out.println(demo.getName());
+        demo.setName("GJJ");
+        System.out.println(demo.getName());
     }
 }
