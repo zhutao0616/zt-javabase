@@ -25,7 +25,7 @@ public class LazySingleton {
                 if (instance==null){                // 再次检测，因为首次检测可能会进来多个线程，在加锁后顺序执行，
                                                     // 在次此检测可以保证只有第一个线程执行，后续的就无需执行。
                     instance = new LazySingleton(); // 该步骤包括：1、分配内存空间，2、初始化对象，3、对象指向内存，
-                                                    // 因为是多个指令，可能出现重排序，利用volatile关键字防止重排序
+                                                    // 因为new对象是多个指令，可能出现重排序，利用volatile关键字防止重排序
                 }
             }
         }

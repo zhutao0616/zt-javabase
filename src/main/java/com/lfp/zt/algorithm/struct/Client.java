@@ -88,15 +88,86 @@ public class Client {
         }
     }
 
+    // 前序遍历 = 深度搜索
+    public void NLR(TreeNode tree){
+        if (tree!=null) {
+            System.out.println(tree);
+            NLR(tree.getLeft());
+            NLR(tree.getRight());
+        }
+    }
+
+    // 中序遍历 =
+    public void LNR(TreeNode tree){
+        Stack<TreeNode> stack = new Stack<>();
+        tree.setReverse(false);
+        stack.push(tree);
+        while (!stack.empty()){
+            TreeNode node = stack.pop();
+            if (node.getReverse()){
+                System.out.println(node);
+            }else{
+                if (node.getLeft()!=null || node.getRight()!=null){
+                    if (node.getRight()!=null){
+                        node.getRight().setReverse(false);
+                        stack.push(node.getRight());
+                    }
+                    node.setReverse(true);
+                    stack.push(node);
+                    if (node.getLeft()!=null){
+                        node.getLeft().setReverse(false);
+                        stack.push(node.getLeft());
+                    }
+                }else{
+                    System.out.println(node);
+                }
+            }
+        }
+    }
+
+    // 后序遍历 =
+    public void LRN(TreeNode tree){
+        Stack<TreeNode> stack = new Stack<>();
+        tree.setReverse(false);
+        stack.push(tree);
+        while (!stack.empty()){
+            TreeNode node = stack.pop();
+            if (node.getReverse()){
+                System.out.println(node);
+            }else{
+                if (node.getLeft()!=null || node.getRight()!=null){
+                    node.setReverse(true);
+                    stack.push(node);
+                    if (node.getRight()!=null){
+                        node.getRight().setReverse(false);
+                        stack.push(node.getRight());
+                    }
+                    if (node.getLeft()!=null){
+                        node.getLeft().setReverse(false);
+                        stack.push(node.getLeft());
+                    }
+                }else{
+                    System.out.println(node);
+                }
+            }
+        }
+    }
 
     public static void main(String[] args){
         Client client = new Client();
         TreeNode tree = client.createTree();
+        System.out.println("=====DFS=====");
         client.DFS(tree);
-        System.out.println("=================");
+        System.out.println("=====BFS=====");
         client.BFS(tree);
-        System.out.println("=================");
+        System.out.println("=====SFS=====");
         client.SFS(tree);
+        System.out.println("=====NLR=====");
+        client.NLR(tree);
+        System.out.println("=====LNR=====");
+        client.LNR(tree);
+        System.out.println("=====LRN=====");
+        client.LRN(tree);
     }
 
 }

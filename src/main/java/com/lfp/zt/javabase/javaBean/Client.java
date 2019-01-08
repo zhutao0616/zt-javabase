@@ -2,7 +2,6 @@ package com.lfp.zt.javabase.javaBean;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;

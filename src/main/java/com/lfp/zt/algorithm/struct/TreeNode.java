@@ -17,7 +17,7 @@ public class TreeNode {
     private int value;
     private TreeNode left;
     private TreeNode right;
-    private boolean reverse;
+    private boolean reverse = false;
 
     public TreeNode() {
     }

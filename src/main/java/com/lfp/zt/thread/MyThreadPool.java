@@ -51,13 +51,14 @@ public class MyThreadPool {
             Runnable task = null;
             for (; ; ) {
                 synchronized (taskQueue) {//获取一个新任务
-                    if (taskQueue.isEmpty())
+                    if (taskQueue.isEmpty()) {
                         try {
                             taskQueue.wait();
                             task = taskQueue.remove(0);
                         } catch (InterruptedException e) {
                             break;
                         }
+                    }
                 }
                 assert task != null;
                 task.run();
