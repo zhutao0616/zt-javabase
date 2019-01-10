@@ -96,7 +96,7 @@ public class ShiftTest {
         System.out.println(b4);//11_0000000_00000000_00000000_0000000
     }
 
-    //逻辑右移 >> 低位溢出，高位补零
+    //逻辑右移 >>> 低位溢出，高位补零
     @Test
     public void testRightNoSymbol(){
         int b1  = 0b0_1111111_11111111_11111111_11111111;

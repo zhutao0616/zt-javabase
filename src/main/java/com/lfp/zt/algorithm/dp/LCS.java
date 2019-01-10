@@ -15,9 +15,11 @@ public class LCS {
 
     /**
      * 最长公共子序列
-     * @param str1
-     * @param str2
-     * @return
+     * 取c[i][j]表示截至字符串1到i长度，字符串2到j长度，两者的最大公共子序列长度
+     * 字符相同，继续累加；字符不同，分别加一个字符取最大值
+     * @param str1  字符串1
+     * @param str2  字符串2
+     * @return len  公共子序列长度
      */
     public static int lcs(String str1, String str2) {
         int len1 = str1.length();
@@ -39,9 +41,11 @@ public class LCS {
 
     /**
      * 最长公共子字符串
-     * @param str1
-     * @param str2
-     * @return
+     * 取c[i][j]表示截至字符串1到i长度，字符串2到j长度，两者当前公共子串长度
+     * 字符相同，继续累加；字符不同，子串重选
+     * @param str1  字符串1
+     * @param str2  字符串2
+     * @return len  公共子串长度
      */
     public static int lcss(String str1, String str2) {
         int len1 = str1.length();

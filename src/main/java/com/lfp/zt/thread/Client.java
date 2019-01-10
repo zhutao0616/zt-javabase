@@ -18,7 +18,7 @@ import java.util.function.Supplier;
  */
 public class Client {
 
-    public static List<String> runSync(List<Task> syncTasks) {
+    public static List<String> supplyAsync(List<Task> syncTasks) {
         List<String> result = new ArrayList<>();
         long start = System.currentTimeMillis();
         CompletableFuture[] cfs = syncTasks.stream().map(object-> CompletableFuture
@@ -36,6 +36,12 @@ public class Client {
         return result;
     }
 
+    public static void runAsync(List<Task> syncTasks) {
+        long start = System.currentTimeMillis();
+        syncTasks.forEach(object-> CompletableFuture.runAsync(object::call, ThreadPool.pool));
+        System.out.println("异步任务全部完成!耗时="+(System.currentTimeMillis()-start));
+    }
+
     public static void main(String [] args){
         List<Task> syncTasks = new ArrayList<>();
         for (int i=0;i<20;i++){
@@ -43,19 +49,16 @@ public class Client {
         }
         System.out.println("======================");
 
-        //父线程设置值
-        ThreadTrace.set("123");
-        List<String> results = runSync(syncTasks);
+        //同步等待子线程运行结束并获取结果
+        ThreadTrace.set("123");//父线程设置值
+        List<String> results = supplyAsync(syncTasks);
         results.forEach(System.out::println);
 
         System.out.println("======================");
 
-        //父线程设置值
-        ThreadTrace.set("456");
-        results = runSync(syncTasks);
-        results.forEach(System.out::println);
-
-
+        //异步执行，执行结果进入队列
+        ThreadTrace.set("456");//父线程设置值
+        runAsync(syncTasks);
     }
 
 }
