@@ -1,8 +1,6 @@
 package com.lfp.zt.thread.base;
 
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
 
 /**
  * Project: zt-javabase
@@ -37,11 +35,28 @@ public class Client {
         }
     }
 
+    private void submit(){
+        ExecutorService executor = Executors.newCachedThreadPool();
+        Callable<String> callable = new MyCallable();
+        Future<String> future = executor.submit(callable);
+        executor.shutdown();
+        try {
+            System.out.println(future.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
         Client client = new Client();
+        //继承Thread类的线程创建
         client.thread();
+        //实现runnable的线程创建
         client.runnable();
+        //实现callable的线程创建
         client.callable();
+        //利用线程池获取线程返回值
+        client.submit();
     }
 
 }

@@ -21,6 +21,12 @@ public class Client {
 
         System.out.println(ForkJoinPool.getCommonPoolParallelism());
         Executors.newWorkStealingPool();
+
+
+
+        System.out.println(Runtime.getRuntime().maxMemory());
+        System.out.println(Runtime.getRuntime().totalMemory());
+        System.out.println(Runtime.getRuntime().freeMemory());
     }
 
 }

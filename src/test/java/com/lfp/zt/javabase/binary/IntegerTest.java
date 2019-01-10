@@ -23,19 +23,22 @@ public class IntegerTest {
 
         Integer i4 = new Integer(59);
 
-        System.out.println(i1==i2);
-        System.out.println(i1==i3);
-        System.out.println(i1==i4);
+        System.out.println(i1==i2);     //true，自动拆箱进行比较
+        System.out.println(i1==i3);     //true，自动拆箱进行比较
+        System.out.println(i1==i4);     //true，自动拆箱进行比较
 
-        System.out.println(i2==i3);
-        System.out.println(i2==i4);
+        System.out.println(i2==i3);     //true，-128～127直接引用字面量
+        System.out.println(i2==i4);     //false，new出来的地址是新的
 
-        System.out.println(i3==i4);
+        System.out.println(i3==i4);     //false，new出来的地址是新的
 
 
-        Integer i5 = 128;
+        int i5 = 128;
         Integer i6 = 128;
-        System.out.println(i5==i6);
+        Integer i7 = 128;
+        System.out.println(i5==i6);     //true，自动拆箱进行比较
+        System.out.println(i5==i7);     //true，自动拆箱进行比较
+        System.out.println(i6==i7);     //false，不在-128～127之间，创建新的对象
 
     }
 
@@ -44,13 +47,13 @@ public class IntegerTest {
         Integer i1 = new Integer(59);
         Integer i2 = new Integer(59);
 
-        System.out.println(i1==i2);
+        System.out.println(i1==i2);     //false，new出来的地址是新的
 
 
         String s1 = new String("123");
         String s2 = new String("123");
 
-        System.out.println(s1==s2);
+        System.out.println(s1==s2);     //false，new出来的地址是新的
     }
 
 }

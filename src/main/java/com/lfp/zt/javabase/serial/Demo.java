@@ -13,7 +13,7 @@ import java.io.Serializable;
  * @author ZhuTao
  * @version 2.0
  */
-public class Demo implements Serializable {
+public class Demo extends Object implements Serializable, Cloneable {
 
     private String name;
 

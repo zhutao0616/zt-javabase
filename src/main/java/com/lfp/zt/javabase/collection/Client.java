@@ -1,12 +1,6 @@
 package com.lfp.zt.javabase.collection;
 
-import org.omg.CORBA.OBJ_ADAPTER;
-
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.*;
 
 /**
  * Project: zt-javabase
@@ -22,6 +16,10 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Client {
 
     public static void main(String[] args){
+        test();
+    }
+
+    void tt(){
         HashMap<String, Object> map = new HashMap<>();
         HashSet<String> set = new HashSet<>();
 
@@ -38,6 +36,9 @@ public class Client {
         int index = (16-1) & hash(key);
         System.out.println(index);
         System.out.println(hash(key)%16);
+
+
+        Collections.synchronizedMap(map);
     }
 
     static int hash(Object key) {
@@ -46,10 +47,23 @@ public class Client {
     }
 
     static void test(){
-        ConcurrentHashMap<String, Object> map = new ConcurrentHashMap<>();
 
-        Collections.synchronizedMap(map);
         //map.red
+
+        List<Integer> list = new LinkedList<>();
+        list.add(1);list.add(2);list.add(3);list.add(4);
+
+        /*list.forEach(obj->{
+            if (obj.equals(2)) list.remove(obj);
+        });*/
+
+        Iterator<Integer> iterator = list.iterator();
+        while (iterator.hasNext()){
+            Integer obj = iterator.next();
+            if (obj.equals(2)) iterator.remove();
+            if (obj.equals(4)) iterator.remove();
+        }
+        System.out.println(list.size());
     }
 
 
