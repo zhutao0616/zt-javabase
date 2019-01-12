@@ -1,6 +1,7 @@
 package com.lfp.zt.algorithm.dp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class SteelCut {
 
-    private static final int [] price = {0,1,5,8,9,10,17,17,20,24,30};
+    private static final int [] price = {0,2,5,8,9,10,17,17,20,24,30};
     private static List<Integer> best = new ArrayList<>();
 
     private int recursiveCut(int [] price, int n){
@@ -65,9 +66,26 @@ public class SteelCut {
         return best[n][0];
     }
 
+    private int dpCut(int max){
+        //best[i] 表示在处理i长度的钢铁时，可以获得的最大收益。
+        // best[i-k]+price[k],
+        int [] best = new int[max+1];
+        for (int i=1;i<=max;i++){
+            best[i] = -1;
+            for (int k=1;k<price.length;k++){
+                if (i>=k) {
+                    best[i] = Math.max(best[i - k] + price[k], best[i]);
+                }
+            }
+        }
+        System.out.println(Arrays.toString(best));
+        return best[max];
+    }
+
+
     public static void main(String[] args){
         SteelCut steelCut = new SteelCut();
-        int n = 10;
+        /*int n = 10;
         Date begin = new Date();
         int p = steelCut.recursiveCut(price, n);
         System.out.println("递归耗时："+(new Date().getTime()-begin.getTime())+"ms");
@@ -85,6 +103,11 @@ public class SteelCut {
         System.out.println("DP耗时："+(new Date().getTime()-begin.getTime())+"ms");
         System.out.println(p);
 
+        begin = new Date();
+        p = steelCut.dpCut(n);
+        System.out.println("DP耗时："+(new Date().getTime()-begin.getTime())+"ms");
+        System.out.println(p);*/
+        System.out.println(steelCut.dpCut(4));
     }
 
 }
