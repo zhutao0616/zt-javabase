@@ -59,6 +59,8 @@ public class Client {
         //异步执行，执行结果进入队列
         ThreadTrace.set("456");//父线程设置值
         runAsync(syncTasks);
+
+
     }
 
 }

@@ -26,7 +26,7 @@ abstract class Parent {                 //abstract:1、修饰类，说明为抽�
 }
 
 
-class StaticWord extends Parent {
+public class StaticWord extends Parent {
 
     static int propOne = 11;
     int propTwo = 12;

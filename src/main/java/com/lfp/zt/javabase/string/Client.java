@@ -23,6 +23,16 @@ public class Client {
         byte[] bytes = new byte[16];
         String s = new String(bytes, StandardCharsets.US_ASCII);
         System.out.println(s);
+
+
+        String[] strings = "ddddd,dd".split(",");
+        System.out.println(strings.length);
+        System.out.println(strings[0].length());
+
+
+        char[] chars = {'a','b','\0','d','e','f','g','h','i','j'};
+        String s1 = new String(chars, 1, 1);
+        System.out.println(s1);
     }
 
 }

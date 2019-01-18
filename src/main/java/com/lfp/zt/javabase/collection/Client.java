@@ -1,6 +1,9 @@
 package com.lfp.zt.javabase.collection;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Project: zt-javabase
@@ -15,9 +18,7 @@ import java.util.*;
  */
 public class Client {
 
-    public static void main(String[] args){
-        test();
-    }
+
 
     void tt(){
         HashMap<String, Object> map = new HashMap<>();
@@ -39,6 +40,10 @@ public class Client {
 
 
         Collections.synchronizedMap(map);
+        //map.forEach();
+        map.isEmpty();
+        set.isEmpty();
+
     }
 
     static int hash(Object key) {
@@ -53,9 +58,11 @@ public class Client {
         List<Integer> list = new LinkedList<>();
         list.add(1);list.add(2);list.add(3);list.add(4);
 
-        /*list.forEach(obj->{
+        list.forEach(obj->{
             if (obj.equals(2)) list.remove(obj);
-        });*/
+        });
+
+        list.isEmpty();
 
         Iterator<Integer> iterator = list.iterator();
         while (iterator.hasNext()){
@@ -65,6 +72,85 @@ public class Client {
         }
         System.out.println(list.size());
     }
+
+
+
+
+
+    static void failFastList(){
+        List<Integer> list = new ArrayList<>();
+        list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);list.add(6);
+
+        Iterator<Integer> iterator = list.iterator();   //ArrayList.Itr
+        while (iterator.hasNext()){
+            Integer obj = iterator.next();
+            if (obj.equals(2)) iterator.remove();       //成功
+            //if (obj.equals(4)) list.remove(obj);      //失败，迭代中改变自身会报错 ConcurrentModificationException
+        }
+        System.out.println(list.size());
+
+    }
+
+    static void failSafeList(){
+        List<Integer> list = new CopyOnWriteArrayList<>();
+        list.add(1);list.add(2);list.add(3);list.add(4);list.add(5);list.add(6);
+
+        Iterator<Integer> iterator = list.iterator();   //CopyOnWriteArrayList.COWIterator
+        while (iterator.hasNext()){
+            Integer obj = iterator.next();
+            //if (obj.equals(2)) iterator.remove();     //失败，不支持在迭代中删除 UnsupportedOperationException
+            if (obj.equals(4)) list.remove(obj);        //成功
+        }
+        System.out.println(list.size());
+
+    }
+
+    static void queue(){
+        ConcurrentLinkedQueue<Integer> queue = new ConcurrentLinkedQueue<>();
+        queue.offer(1);
+        System.out.println(queue.peek());
+        System.out.println(queue.poll());
+
+        LinkedBlockingQueue<Integer> blockingQueue = new LinkedBlockingQueue<>();
+        blockingQueue.offer(1);
+        System.out.println(blockingQueue.peek());
+        System.out.println(blockingQueue.poll());
+
+        try {
+            blockingQueue.put(2);
+            System.out.println(blockingQueue.take());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    static void weakMap(){
+        Map<String, Object> map = new WeakHashMap<>();
+        int count = 0;
+        while (true){
+            map.put(String.valueOf(count++), new OOMObject());
+            System.out.println(map.size());
+        }
+    }
+
+    static void map(){
+        Map<String, Object> map = new LinkedHashMap<>();
+        int count = 0;
+        while (true){
+            map.put(String.valueOf(count++), new OOMObject());
+            System.out.println(map.size());
+        }
+    }
+    private static class OOMObject{
+        private long[] longs = new long[10000];
+    }
+    public static void main(String[] args){
+        map();          //会OOM
+        weakMap();      //不会OOM
+    }
+
 
 
 }
