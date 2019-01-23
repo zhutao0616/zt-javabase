@@ -100,11 +100,35 @@ public class Client {
 
     }
 
+    private static void testMyLock(){
+        MyLock lock = new MyLock();
+
+        for (int i=0;i<10;i++) {
+            new Thread(() -> {
+                lock.lock();
+                try {
+                    System.out.println(Thread.currentThread()+"开始");
+                    Thread.sleep(1000L);
+                    System.out.println(Thread.currentThread()+"结束");
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    lock.unlock();
+                }
+            }).start();
+        }
+
+    }
+
+
+
+
     public static void main(String[] args){
         //testCAS();
-        testLockSupport();
+        //testLockSupport();
         //testOnlyLock();
         //testSharedLock();
+        testMyLock();
     }
 
 }
